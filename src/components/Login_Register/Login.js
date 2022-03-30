@@ -3,14 +3,14 @@ import { Link, useNavigate } from "react-router-dom"
 import { ThreeDots } from "react-loader-spinner"
 import { useState, useContext } from "react"
 import axios from "axios"
-import { UserInfos } from "../../contexts/userInfos"
+import { UserInfosContext } from "../../contexts/UserInfosContext"
 
 import Logo from "./Logo.svg"
 
 export default function Login() {
   const navigate = useNavigate();
 
-  const { setUserData } = useContext(UserInfos);
+  const { setUserData } = useContext(UserInfosContext);
 
   const [userLogin, setUserLogin] = useState({});
   const [loadingState, setLoadingState] = useState({ loading: false, formState: false })
@@ -33,7 +33,6 @@ export default function Login() {
     })
 
     promise.catch((error) => {
-      console.log(error.response.status)
       alert(error.response.status === 401 ? error.response.data.message
         : "Algo deu errado, verifique seu email/senha e tente novamente!");
       setLoadingState({ loading: false, formState: false });

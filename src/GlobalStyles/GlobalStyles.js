@@ -1,8 +1,7 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
+import { createGlobalStyle } from "styled-components";
 
+const GlobalStyle = createGlobalStyle`
+/* RESET */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -52,3 +51,49 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+
+/* GLOBAL CSS */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #FFFFFF;
+  font-family: 'Lexend Deca', sans-serif;
+}
+
+button {
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  border-radius: 4.63636px;
+  border: none;
+  font-family: 'Lexend Deca', sans-serif;
+  color: #FFFFFF;
+  background-color: #52B6FF;
+}
+
+input {
+  font-family: 'Lexend Deca', sans-serif;
+  margin-bottom: 6px;
+  border: 1px solid #D5D5D5;
+  border-radius: 5px;
+  font-family: 'Lexend Deca';
+  font-weight: 400;
+  font-size: 19.976px;
+  line-height: 25px;
+  padding-left: 11px;
+}
+
+input::placeholder {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 19.976px;
+  line-height: 25px;
+  color: #DBDBDB;
+}
+
+`
+
+export default GlobalStyle;
