@@ -2,21 +2,51 @@ import styled from "styled-components"
 import { Link } from "react-router-dom"
 import { ThreeDots } from "react-loader-spinner"
 import { useState, useContext } from "react"
-
-import Logo from "./Logo.svg"
+import axios from "axios"
 import { UserInfos } from "../../contexts/userInfos"
 
-export default function Login() {
+import Logo from "./Logo.svg"
 
-  const { userData: token, userData: image } = useContext(UserInfos);
-  console.log(token)
+export default function Login() {
+  const { userData, setUserData } = useContext(UserInfos);
+
+  const [userLogin, setUserLogin] = useState({});
+  const [loadingState, setLoadingState] = useState({ loading: false, formState: false })
+  const { loading, formState } = loadingState;
+
+  function handleInput(e, property) {
+    setUserLogin({ ...userLogin, [property]: e.target.value });
+  }
+
+  function sendData(e) {
+    setLoadingState({ loading: true, formState: true });
+    e.preventDefault();
+    const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login"
+    const promise = axios.post(URL, userLogin)
+
+    promise.then((response) => {
+      const { data } = response;
+      setUserData({ token: data.token, image: data.image })
+      console.log("Loguei");
+      console.log(response)
+    })
+
+    promise.catch((error) => {
+      console.log(error.response.status)
+      alert(error.response.status === 401 ? error.response.data.message
+        : "Algo deu errado, verifique seu email/senha e tente novamente!");
+      setLoadingState({ loading: false, formState: false });
+    })
+  }
   return (
     <Conteiner >
       <img src={Logo} alt="TrackIt Logo" />
-      <form>
-        <input type="email" placeholder="email" />
-        <input type="password" placeholder="senha" autoComplete="on" />
-        <button type="submit"> Entrar </button>
+      <form onSubmit={sendData}>
+        <input type="email" placeholder="email" onChange={(e) => handleInput(e, "email")}
+          required disabled={formState} />
+        <input type="password" placeholder="senha" autoComplete="on" onChange={(e) => handleInput(e, "password")}
+          required disabled={formState} />
+        <button type="submit"> {loading ? <ThreeDots color="#ffffff" /> : "Entrar"}</button>
       </form>
 
       <Link to="/cadastro">
@@ -48,6 +78,10 @@ const Conteiner = styled.section`
     height: 45px;
     border: 1px solid #D5D5D5;
     border-radius: 5px;
+    font-family: 'Lexend Deca';
+    font-weight: 400;
+    font-size: 19.976px;
+    line-height: 25px;
   }
 
   input::placeholder {

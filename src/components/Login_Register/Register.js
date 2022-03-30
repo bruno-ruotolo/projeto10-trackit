@@ -8,30 +8,30 @@ import Logo from "./Logo.svg"
 
 
 export default function Register() {
-  const [userData, setUserData] = useState({})
+  const [userRegister, setUserRegister] = useState({})
   const [loadingState, setloadingState] = useState({ formState: false, loading: false });
   const { loading, formState } = loadingState;
 
   const navigate = useNavigate();
 
   function handleData(e, property) {
-    setUserData({ ...userData, [property]: e.target.value })
+    setUserRegister({ ...userRegister, [property]: e.target.value })
   }
 
-  function sendData(event) {
-    event.preventDefault();
+  function sendData(e) {
+    e.preventDefault();
     const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
     setloadingState({ formState: true, loading: true });
 
-    const promise = axios.post(URL, null);
+    const promise = axios.post(URL, userRegister);
     promise.then(() => {
       alert("Registro realizado com sucesso!");
       navigate("/")
     });
 
-    promise.catch(() => {
+    promise.catch((error) => {
       setloadingState({ formState: false, loading: false });
-      alert("Ops, algo deu errado! Tente novamente");
+      alert(error.response.status === 409 ? error.response.data.message : "Ops, algo deu errado! Tente novamente");
     });
   }
 
