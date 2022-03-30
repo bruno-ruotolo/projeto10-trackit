@@ -71,42 +71,16 @@ const Conteiner = styled.section`
   }
 
   input {
-    font-family: 'Lexend Deca', sans-serif;
-    margin-bottom: 6px;
     width: 303px;
     height: 45px;
-    border: 1px solid #D5D5D5;
-    border-radius: 5px;
-    font-family: 'Lexend Deca';
-    font-weight: 400;
-    font-size: 19.976px;
-    line-height: 25px;
-  }
-
-  input::placeholder {
-    position: relative;
-    left: 11px;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 19.976px;
-    line-height: 25px;
-    color: #DBDBDB;
   }
 
   button {
-    display:flex;
-    align-items:center;
-    justify-content: center;
     width: 303px;
     height: 45px;
-    background: #52B6FF;
-    border-radius: 4.63636px;
-    border: none;
-    font-family: 'Lexend Deca', sans-serif;
     font-weight: 400;
     font-size: 20.976px;
     line-height: 26px;
-    color: #FFFFFF;
   }
 
   p {
