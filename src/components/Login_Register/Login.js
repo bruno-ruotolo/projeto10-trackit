@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { Link, useNavigate } from "react-router-dom"
 import { ThreeDots } from "react-loader-spinner"
-import { useState, useContext } from "react"
+import { useState, useContext, useEffect } from "react"
 import axios from "axios"
 import { UserInfosContext } from "../../contexts/UserInfosContext"
 
@@ -9,12 +9,19 @@ import Logo from "./Logo.svg"
 
 export default function Login() {
   const navigate = useNavigate();
+  const userTokenStorage = localStorage.getItem("token");
 
   const { setUserData } = useContext(UserInfosContext);
 
-  const [userLogin, setUserLogin] = useState({});
+  const [userLogin, setUserLogin] = useState({ email: "", password: "" });
   const [loadingState, setLoadingState] = useState({ loading: false, formState: false })
   const { loading, formState } = loadingState;
+
+  useEffect(() => {
+    if (userTokenStorage) {
+      navigate("/habitos");
+    }
+  }, [navigate, userTokenStorage]);
 
   function handleInput(e, property) {
     setUserLogin({ ...userLogin, [property]: e.target.value });
@@ -29,7 +36,9 @@ export default function Login() {
     promise.then((response) => {
       const { data } = response;
       setUserData({ token: data.token, image: data.image })
-      navigate("/hoje");
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('image', data.image);
+      navigate("/habitos");
     })
 
     promise.catch((error) => {
@@ -37,14 +46,15 @@ export default function Login() {
         : "Algo deu errado, verifique seu email/senha e tente novamente!");
       setLoadingState({ loading: false, formState: false });
     })
+
   }
   return (
     <Conteiner >
       <img src={Logo} alt="TrackIt Logo" />
       <form onSubmit={sendData}>
-        <input type="email" placeholder="email" onChange={(e) => handleInput(e, "email")}
+        <input type="email" placeholder="email" value={userLogin.email} onChange={(e) => handleInput(e, "email")}
           required disabled={formState} />
-        <input type="password" placeholder="senha" autoComplete="on" onChange={(e) => handleInput(e, "password")}
+        <input type="password" placeholder="senha" value={userLogin.password} autoComplete="on" onChange={(e) => handleInput(e, "password")}
           required disabled={formState} />
         <button type="submit"> {loading ? <ThreeDots color="#ffffff" /> : "Entrar"}</button>
       </form>

@@ -8,7 +8,7 @@ import Logo from "./Logo.svg"
 
 
 export default function Register() {
-  const [userRegister, setUserRegister] = useState({})
+  const [userRegister, setUserRegister] = useState({ email: "", password: "", name: "", image: "" })
   const [loadingState, setloadingState] = useState({ formState: false, loading: false });
   const { loading, formState } = loadingState;
 
@@ -39,12 +39,20 @@ export default function Register() {
     <Conteiner >
       <img src={Logo} alt="TrackIt Logo" />
       <form onSubmit={sendData}>
-        <input type="email" placeholder="email" onChange={(e) => handleData(e, "email")} disabled={formState} required />
-        <input type="password" placeholder="senha" autoComplete="on"
-          onChange={(e) => handleData(e, "password")} disabled={formState} required />
-        <input type="text" placeholder="nome" onChange={(e) => handleData(e, "name")} disabled={formState} required />
-        <input type="url" placeholder="foto" onChange={(e) => handleData(e, "image")} disabled={formState} required />
-        <button type="submit" disabled={formState}>{loading ? <ThreeDots color="#ffffff" /> : "Cadastrar"}</button>
+        <input type="email" placeholder="email" value={userRegister.email} onChange={(e) => handleData(e, "email")}
+          disabled={formState} required />
+
+        <input type="password" placeholder="senha" autoComplete="on" value={userRegister.password} onChange={(e) => handleData(e, "password")}
+          disabled={formState} required />
+
+        <input type="text" placeholder="nome" value={userRegister.name} onChange={(e) => handleData(e, "name")}
+          disabled={formState} required />
+
+        <input type="url" placeholder="foto" value={userRegister.image} onChange={(e) => handleData(e, "image")}
+          disabled={formState} required />
+
+        <button type="submit" disabled={formState}>{loading ? <ThreeDots color="#ffffff" />
+          : "Cadastrar"}</button>
       </form>
 
 

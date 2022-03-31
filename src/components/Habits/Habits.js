@@ -1,10 +1,37 @@
 import styled from "styled-components";
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
 
-import Header from "./Header";
-import Footer from "./Footer";
-
+import Header from "../Header";
+import Footer from "../Footer";
+import { UserInfosContext } from "../../contexts/UserInfosContext";
+import CreateHabit from "./CreateHabit";
 
 export default function Habits() {
+  const { userData: { token } } = useContext(UserInfosContext);
+
+  const [creationTab, setCreationTab] = useState(false);
+
+  useEffect(() => {
+    const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits";
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+    const promise = axios.get(URL, config);
+
+    promise.then((response) => {
+      console.log(response);
+    });
+
+    promise.catch((error) => {
+      alert("Algo deu errado, tente reiniciar a página novamente");
+    });
+
+  }, [token])
+
 
   return (
     <>
@@ -12,8 +39,9 @@ export default function Habits() {
       <HabitsScreen>
         <FixedHabitsDiv>
           <h2>Meus hábitos</h2>
-          <button><span>+</span></button>
+          <button onClick={() => setCreationTab(true)}><span>+</span></button>
         </FixedHabitsDiv>
+        <CreateHabit creationTab={creationTab} />
         <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
       </HabitsScreen>
       <Footer />

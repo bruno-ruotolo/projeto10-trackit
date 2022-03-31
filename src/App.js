@@ -4,7 +4,7 @@ import GlobalStyle from "./GlobalStyles/GlobalStyles";
 
 import Login from "./components/Login_Register/Login"
 import Register from "./components/Login_Register/Register"
-import Habits from "./components/Habits"
+import Habits from "./components/Habits/Habits"
 
 export default function App() {
 
@@ -15,7 +15,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/cadastro" element={<Register />} />
-          <Route path="/hoje" element={<Habits />} />
+          <Route path="/habitos" element={<Habits />} />
         </Routes>
       </BrowserRouter>
     </UserInfosProvider>
