@@ -1,7 +1,8 @@
 import styled from "styled-components"
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CreateHabitsContext } from "../../contexts/CreateHabitsContext"
 import { UserInfosContext } from "../../contexts/UserInfosContext"
+import { ThreeDots } from "react-loader-spinner"
 import axios from "axios";
 
 import CheckBox from "./CheckBox";
@@ -23,7 +24,10 @@ export default function CreateHabit(props) {
 
   const { userData: { token } } = useContext(UserInfosContext);
 
+  const [toggleInputs, setToggleInputs] = useState(false);
+
   function sendData(e) {
+    setToggleInputs(true);
     let arrDays = [];
     e.preventDefault();
     const { name, days } = createHabitsInfo;
@@ -44,6 +48,7 @@ export default function CreateHabit(props) {
 
     promise.then((response) => {
       const { data: { name } } = response;
+      setToggleInputs(false);
       callBack(false);
       alert(`Hábito ${name} criado com sucesso!`);
       setCreateHabitsInfo({ name: "", days: new Map(), boolean: !boolean });
@@ -51,6 +56,7 @@ export default function CreateHabit(props) {
     })
 
     promise.catch(() => {
+      setToggleInputs(false);
       alert("Ops, algo deu errado! Verifique se todos os campos estão preenchidos e tente novamente")
     })
   }
@@ -61,17 +67,18 @@ export default function CreateHabit(props) {
         <input type="text" placeholder="nome do hábito"
           value={name}
           required
+          disabled={toggleInputs}
           onChange={(e) => setCreateHabitsInfo({ ...createHabitsInfo, name: e.target.value })} />
 
         <Checkboxes>
           {weekDays.map((weekDay, index) => {
             const { name } = weekDay;
-            return (<CheckBox name={name} key={index} index={index} />)
+            return (<CheckBox name={name} key={index} index={index} toggleInputs={toggleInputs} />)
           })}
         </Checkboxes>
         <Buttons>
           <button onClick={() => callBack(false)}>Cancelar</button>
-          <button type="submit">Salvar</button>
+          <button type="submit"> {toggleInputs ? <ThreeDots color="#ffffff" width="70px" /> : "Salvar"}</button>
         </Buttons>
       </form>
 

@@ -3,7 +3,7 @@ import { useState, useContext, useEffect } from "react";
 import { CreateHabitsContext } from "../../contexts/CreateHabitsContext"
 
 export default function CheckBox(props) {
-  const { name, index } = props;
+  const { name, index, toggleInputs } = props;
 
   const [selectedDay, setSelectedDay] = useState(false);
 
@@ -31,13 +31,13 @@ export default function CheckBox(props) {
     }
   }
   return (
-    <Checkbox selectedDay={selectedDay} onClick={handleWeekDays} >
+    <Checkbox type="button" disabled={toggleInputs} selectedDay={selectedDay} onClick={handleWeekDays} >
       <span>{name}</span>
     </Checkbox>
   )
 }
 
-const Checkbox = styled.div`
+const Checkbox = styled.button`
   display:flex;
   align-items:center;
   justify-content:center;

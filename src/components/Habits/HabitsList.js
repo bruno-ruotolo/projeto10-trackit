@@ -53,15 +53,19 @@ export default function HabitsList() {
         Authorization: `Bearer ${token}`
       }
     }
-
     const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`
-    const promise = axios.delete(URL, config);
 
-    promise.then(() => {
-      alert("Hábito removido com sucesso!")
-      setCreateHabitsInfo({ ...createHabitsInfo, boolean: !boolean })
-    });
-    promise.catch(() => alert("Ops, algo deu errado! Tente novamente"));
+
+    const confirm = prompt("Tem certeza que quer apagar? Digite 'Sim'")
+
+    if (confirm === "Sim") {
+      const promise = axios.delete(URL, config);
+      promise.then(() => {
+        alert("Hábito removido com sucesso!")
+        setCreateHabitsInfo({ ...createHabitsInfo, boolean: !boolean })
+      });
+      promise.catch(() => alert("Ops, algo deu errado! Tente novamente"));
+    }
   }
 
   return habitsList.length !== 0 ? (
