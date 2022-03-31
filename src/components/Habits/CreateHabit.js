@@ -1,23 +1,56 @@
 import styled from "styled-components"
+import { useContext } from "react";
+import { CreateHabitsContext } from "../../contexts/CreateHabitsContext"
+import axios from "axios";
 
 import CheckBox from "./CheckBox";
 
 export default function CreateHabit(props) {
   const { creationTab, callBack } = props
-  const weekDays = ["D", "S", "T", "Q", "Q", "S", "S"]
+  const weekDays = [
+    { name: "D", number: 1 },
+    { name: "S", number: 2 },
+    { name: "T", number: 3 },
+    { name: "Q", number: 4 },
+    { name: "Q", number: 5 },
+    { name: "S", number: 6 },
+    { name: "S", number: 7 }
+  ];
+
+  const { createHabitsInfo, setCreateHabitsInfo } = useContext(CreateHabitsContext);
+  const { name } = createHabitsInfo;
+  console.log(createHabitsInfo);
+
+  function sendData(e) {
+    const arrDays = [];
+    e.preventDefault();
+    const { name, days } = createHabitsInfo;
+    for (let keys of days.keys()) {
+      arrDays.push(keys)
+    }
+
+    const objPost = { name, arrDays };
+
+  }
 
   return creationTab ? (
     <CreationDiv>
-      <input type="text" placeholder="nome do hábito" />
-      <Checkboxes>
-        {weekDays.map((weekDay, index) => {
-          return (<CheckBox weekDay={weekDay} key={index} />)
-        })}
-      </Checkboxes>
-      <Buttons>
-        <button onClick={() => callBack(false)}>Cancelar</button>
-        <button>Salvar</button>
-      </Buttons>
+      <form onSubmit={sendData}>
+        <input type="text" placeholder="nome do hábito"
+          value={name}
+          onChange={(e) => setCreateHabitsInfo({ ...createHabitsInfo, name: e.target.value })} />
+
+        <Checkboxes>
+          {weekDays.map((weekDay, index) => {
+            const { name } = weekDay;
+            return (<CheckBox name={name} key={index} index={index} />)
+          })}
+        </Checkboxes>
+        <Buttons>
+          <button onClick={() => callBack(false)}>Cancelar</button>
+          <button type="submit">Salvar</button>
+        </Buttons>
+      </form>
 
     </CreationDiv>
   ) : <></>

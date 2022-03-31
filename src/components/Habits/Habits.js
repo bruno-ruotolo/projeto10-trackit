@@ -6,11 +6,24 @@ import Header from "../Header";
 import Footer from "../Footer";
 import { UserInfosContext } from "../../contexts/UserInfosContext";
 import CreateHabit from "./CreateHabit";
+import HabitsList from "./HabitsList";
 
 export default function Habits() {
   const { userData: { token } } = useContext(UserInfosContext);
 
   const [creationTab, setCreationTab] = useState(false);
+  const [habitsList, setHabitsList] = useState([
+    {
+      id: 1,
+      name: "Nome do hábito",
+      days: [1, 3, 5]
+    },
+    {
+      id: 2,
+      name: "Nome do hábito 2",
+      days: [1, 3, 4, 6]
+    }
+  ])
 
   useEffect(() => {
     const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits";
@@ -42,6 +55,7 @@ export default function Habits() {
           <button onClick={() => setCreationTab(true)}><span>+</span></button>
         </FixedHabitsDiv>
         <CreateHabit creationTab={creationTab} callBack={(value) => setCreationTab(value)} />
+        <HabitsList habitsList={habitsList} />
         <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
       </HabitsScreen>
       <Footer />

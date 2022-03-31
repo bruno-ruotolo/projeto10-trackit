@@ -1,17 +1,43 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
+import { CreateHabitsContext } from "../../contexts/CreateHabitsContext"
 
 export default function CheckBox(props) {
-  const { weekDay } = props;
+  const { name, index } = props;
+
   const [selectedDay, setSelectedDay] = useState(false);
 
+  const { createHabitsInfo, setCreateHabitsInfo } = useContext(CreateHabitsContext);
+  const { days } = createHabitsInfo;
+  const selectedMapDay = days.has(index)
+
+  useEffect(() => {
+    if (selectedMapDay) {
+      setSelectedDay(true);
+    } else {
+      setSelectedDay(false);
+    }
+  }, [selectedMapDay])
+
+  function handleWeekDays() {
+    if (selectedMapDay) {
+      setSelectedDay(!selectedMapDay);
+      days.delete(index);
+      setCreateHabitsInfo({ ...createHabitsInfo, days });
+    } else {
+      setSelectedDay(!selectedMapDay);
+      days.set(index, name);
+      setCreateHabitsInfo({ ...createHabitsInfo, days });
+    }
+
+    console.log(createHabitsInfo)
+  }
   return (
-    <Checkbox selectedDay={selectedDay} onClick={() => setSelectedDay(!selectedDay)} >
-      <span>{weekDay}</span>
+    <Checkbox selectedDay={selectedDay} onClick={handleWeekDays} >
+      <span>{name}</span>
     </Checkbox>
   )
 }
-
 
 const Checkbox = styled.div`
   display:flex;
