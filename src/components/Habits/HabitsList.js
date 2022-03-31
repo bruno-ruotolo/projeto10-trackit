@@ -1,10 +1,20 @@
 import styled from "styled-components";
+import axios from "axios";
+import { useContext, useState, useEffect } from "react";
 
 import TrashCanIcon from "./trashcan2.svg"
+import { UserInfosContext } from "../../contexts/UserInfosContext";
+import { CreateHabitsContext } from "../../contexts/CreateHabitsContext"
 
-export default function HabitsList(props) {
-  const { habitsList } = props;
+export default function HabitsList() {
+  const { createHabitsInfo, setCreateHabitsInfo } = useContext(CreateHabitsContext);
+  const { boolean } = createHabitsInfo;
+
   let selectedDay = false;
+
+  const { userData: { token } } = useContext(UserInfosContext);
+
+  const [habitsList, setHabitsList] = useState([])
 
   const weekDays = [
     { name: "D", number: 0 },
@@ -16,14 +26,51 @@ export default function HabitsList(props) {
     { name: "S", number: 6 }
   ];
 
+  useEffect(() => {
+    const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits";
 
-  return habitsList !== [] ? (
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+    const promise = axios.get(URL, config);
+
+    promise.then((response) => {
+      setHabitsList(response.data);
+    });
+
+    promise.catch((error) => {
+      alert("Algo deu errado, tente reiniciar a página novamente");
+    });
+
+  }, [token, boolean])
+
+  function handleHabits(id) {
+    console.log(id);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+
+    const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`
+    const promise = axios.delete(URL, config);
+
+    promise.then(() => {
+      alert("Hábito removido com sucesso!")
+      setCreateHabitsInfo({ ...createHabitsInfo, boolean: !boolean })
+    });
+    promise.catch(() => alert("Ops, algo deu errado! Tente novamente"));
+  }
+
+  return habitsList.length !== 0 ? (
     habitsList.map((habit, index) => {
-      const { name, days } = habit;
+      const { name, days, id } = habit;
       return (
         <HabitsListDiv key={index}>
           <h3>{name}</h3>
-          <img src={TrashCanIcon} alt="TrashCanIcon" />
+          <img src={TrashCanIcon} alt="TrashCanIcon" onClick={() => handleHabits(id)} />
           <CheckboxesList >
             {weekDays.map((weekDay, indexWeekDays) => {
               const { name, number } = weekDay;

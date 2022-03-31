@@ -19,7 +19,7 @@ export default function CreateHabit(props) {
   ];
 
   const { createHabitsInfo, setCreateHabitsInfo } = useContext(CreateHabitsContext);
-  const { name } = createHabitsInfo;
+  const { name, boolean } = createHabitsInfo;
 
   const { userData: { token } } = useContext(UserInfosContext);
 
@@ -44,7 +44,10 @@ export default function CreateHabit(props) {
 
     promise.then((response) => {
       const { data: { name } } = response;
+      callBack(false);
       alert(`Hábito ${name} criado com sucesso!`);
+      setCreateHabitsInfo({ name: "", days: new Map(), boolean: !boolean });
+
     })
 
     promise.catch(() => {

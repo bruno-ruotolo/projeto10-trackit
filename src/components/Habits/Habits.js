@@ -1,40 +1,13 @@
 import styled from "styled-components";
-import { useContext, useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
 
 import Header from "../Header";
 import Footer from "../Footer";
-import { UserInfosContext } from "../../contexts/UserInfosContext";
 import CreateHabit from "./CreateHabit";
 import HabitsList from "./HabitsList";
 
 export default function Habits() {
-  const { userData: { token } } = useContext(UserInfosContext);
-
   const [creationTab, setCreationTab] = useState(false);
-  const [habitsList, setHabitsList] = useState([])
-
-  useEffect(() => {
-    const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits";
-
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    }
-    const promise = axios.get(URL, config);
-
-    promise.then((response) => {
-      console.log("Get sucess")
-      setHabitsList(response.data);
-    });
-
-    promise.catch((error) => {
-      alert("Algo deu errado, tente reiniciar a página novamente");
-    });
-
-  }, [token])
-
   return (
     <>
       <Header />
@@ -44,24 +17,23 @@ export default function Habits() {
           <button onClick={() => setCreationTab(true)}><span>+</span></button>
         </FixedHabitsDiv>
         <CreateHabit creationTab={creationTab} callBack={(value) => setCreationTab(value)} />
-        <HabitsList habitsList={habitsList} />
-
+        <HabitsList />
       </HabitsScreen>
       <Footer />
     </>
-
   )
 }
 
 const HabitsScreen = styled.section`
-  position:absolute;
   display:flex;
   flex-direction: column;
   align-items:center;
   top: 70px;
   background-color: #F2F2F2;
-  height: calc(100vh - 70px);
+  min-height: calc(100vh - 140px);
   width: 100%;
+  margin-bottom: 70px;
+  margin-top: 70px;
   
   p {
     margin: 0 18px;
@@ -76,12 +48,11 @@ const FixedHabitsDiv = styled.article`
   display:flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
+  width: 330px;
   margin-bottom: 28px;
   margin-top:28px;
 
   h2 {
-    margin-left: 18px;
     font-weight: 400;
     font-size: 22.976px;
     line-height: 29px;
@@ -89,7 +60,6 @@ const FixedHabitsDiv = styled.article`
   }
 
   button {
-    margin-right: 18px;
     width: 40px;
     height: 35px;
     font-weight: 400;
