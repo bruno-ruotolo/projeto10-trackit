@@ -12,18 +12,7 @@ export default function Habits() {
   const { userData: { token } } = useContext(UserInfosContext);
 
   const [creationTab, setCreationTab] = useState(false);
-  const [habitsList, setHabitsList] = useState([
-    {
-      id: 1,
-      name: "Nome do hábito",
-      days: [1, 3, 5]
-    },
-    {
-      id: 2,
-      name: "Nome do hábito 2",
-      days: [1, 3, 4, 6]
-    }
-  ])
+  const [habitsList, setHabitsList] = useState([])
 
   useEffect(() => {
     const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits";
@@ -36,7 +25,8 @@ export default function Habits() {
     const promise = axios.get(URL, config);
 
     promise.then((response) => {
-      console.log(response);
+      console.log("Get sucess")
+      setHabitsList(response.data);
     });
 
     promise.catch((error) => {
@@ -45,7 +35,6 @@ export default function Habits() {
 
   }, [token])
 
-  //TEM QUE MANTER OS DADOS AO CANCELAR, USAR USECONTEXT
   return (
     <>
       <Header />
@@ -56,7 +45,7 @@ export default function Habits() {
         </FixedHabitsDiv>
         <CreateHabit creationTab={creationTab} callBack={(value) => setCreationTab(value)} />
         <HabitsList habitsList={habitsList} />
-        <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
+
       </HabitsScreen>
       <Footer />
     </>
@@ -72,6 +61,7 @@ const HabitsScreen = styled.section`
   top: 70px;
   background-color: #F2F2F2;
   height: calc(100vh - 70px);
+  width: 100%;
   
   p {
     margin: 0 18px;

@@ -1,17 +1,19 @@
 import styled from "styled-components";
 
+import TrashCanIcon from "./trashcan2.svg"
+
 export default function HabitsList(props) {
   const { habitsList } = props;
   let selectedDay = false;
 
   const weekDays = [
-    { name: "D", number: 1 },
-    { name: "S", number: 2 },
-    { name: "T", number: 3 },
+    { name: "D", number: 0 },
+    { name: "S", number: 1 },
+    { name: "T", number: 2 },
+    { name: "Q", number: 3 },
     { name: "Q", number: 4 },
-    { name: "Q", number: 5 },
-    { name: "S", number: 6 },
-    { name: "S", number: 7 }
+    { name: "S", number: 5 },
+    { name: "S", number: 6 }
   ];
 
 
@@ -21,6 +23,7 @@ export default function HabitsList(props) {
       return (
         <HabitsListDiv key={index}>
           <h3>{name}</h3>
+          <img src={TrashCanIcon} alt="TrashCanIcon" />
           <CheckboxesList >
             {weekDays.map((weekDay, indexWeekDays) => {
               const { name, number } = weekDay;
@@ -39,10 +42,11 @@ export default function HabitsList(props) {
         </HabitsListDiv>
       )
     })
-  ) : <></>
+  ) : <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
 }
 
 const HabitsListDiv = styled.article`
+  position: relative;
   display:flex;
   flex-direction:column;
   align-items:flex-start;
@@ -59,6 +63,14 @@ const HabitsListDiv = styled.article`
     line-height: 25px;
     color: #666666;
     margin-bottom: 8px;
+  }
+
+  img {
+    position: absolute;
+    top: 11px;
+    right: 10px;
+    width: 16px;
+    height: 18px;
   }
 `
 

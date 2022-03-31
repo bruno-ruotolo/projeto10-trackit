@@ -29,8 +29,6 @@ export default function CheckBox(props) {
       days.set(index, name);
       setCreateHabitsInfo({ ...createHabitsInfo, days });
     }
-
-    console.log(createHabitsInfo)
   }
   return (
     <Checkbox selectedDay={selectedDay} onClick={handleWeekDays} >

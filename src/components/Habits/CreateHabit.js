@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { useContext } from "react";
 import { CreateHabitsContext } from "../../contexts/CreateHabitsContext"
+import { UserInfosContext } from "../../contexts/UserInfosContext"
 import axios from "axios";
 
 import CheckBox from "./CheckBox";
@@ -8,29 +9,47 @@ import CheckBox from "./CheckBox";
 export default function CreateHabit(props) {
   const { creationTab, callBack } = props
   const weekDays = [
-    { name: "D", number: 1 },
-    { name: "S", number: 2 },
-    { name: "T", number: 3 },
+    { name: "D", number: 0 },
+    { name: "S", number: 1 },
+    { name: "T", number: 2 },
+    { name: "Q", number: 3 },
     { name: "Q", number: 4 },
-    { name: "Q", number: 5 },
-    { name: "S", number: 6 },
-    { name: "S", number: 7 }
+    { name: "S", number: 5 },
+    { name: "S", number: 6 }
   ];
 
   const { createHabitsInfo, setCreateHabitsInfo } = useContext(CreateHabitsContext);
   const { name } = createHabitsInfo;
-  console.log(createHabitsInfo);
+
+  const { userData: { token } } = useContext(UserInfosContext);
 
   function sendData(e) {
-    const arrDays = [];
+    let arrDays = [];
     e.preventDefault();
     const { name, days } = createHabitsInfo;
     for (let keys of days.keys()) {
       arrDays.push(keys)
     }
 
-    const objPost = { name, arrDays };
+    arrDays = arrDays.sort((a, b) => a - b);
+    const objPost = { name, days: arrDays };
+    console.log(objPost);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+    const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits"
+    const promise = axios.post(URL, objPost, config);
 
+    promise.then((response) => {
+      const { data: { name } } = response;
+      alert(`Hábito ${name} criado com sucesso!`);
+    })
+
+    promise.catch(() => {
+      alert("Ops, algo deu errado! Verifique se todos os campos estão preenchidos e tente novamente")
+    })
   }
 
   return creationTab ? (
@@ -38,6 +57,7 @@ export default function CreateHabit(props) {
       <form onSubmit={sendData}>
         <input type="text" placeholder="nome do hábito"
           value={name}
+          required
           onChange={(e) => setCreateHabitsInfo({ ...createHabitsInfo, name: e.target.value })} />
 
         <Checkboxes>
