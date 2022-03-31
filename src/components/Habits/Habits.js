@@ -32,7 +32,7 @@ export default function Habits() {
 
   }, [token])
 
-
+  //TEM QUE MANTER OS DADOS AO CANCELAR, USAR USECONTEXT
   return (
     <>
       <Header />
@@ -41,7 +41,7 @@ export default function Habits() {
           <h2>Meus hábitos</h2>
           <button onClick={() => setCreationTab(true)}><span>+</span></button>
         </FixedHabitsDiv>
-        <CreateHabit creationTab={creationTab} />
+        <CreateHabit creationTab={creationTab} callBack={(value) => setCreationTab(value)} />
         <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
       </HabitsScreen>
       <Footer />
