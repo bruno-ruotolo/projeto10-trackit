@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import dayjs from "dayjs";
+import localePtbr from "dayjs/locale/pt-br";
 
 import Footer from "../Footer";
 import Header from "../Header";
@@ -29,26 +31,28 @@ export default function Today() {
 
     })
 
+    console.log(dayjs.locale(localePtbr))
     promise.catch(() => {
       console.log("Promise Error");
     })
   }
     , [token, selectedHabits])
 
-  console.log(todayHabits);
-
   const habitsDone = todayHabits.filter((todayHabit) => {
     return todayHabit.done
   })
 
-  console.log(habitsDone);
+  const dayJSWeekDay = dayjs().format('dddd')
+  const dayJSYearDay = dayjs().format('DD/MM')
+
+  console.log(dayJSYearDay);
 
   return (
     <>
       <Header />
       <TodayScreen>
         <FixedTodayDiv>
-          <h2>Segunda, 17/05</h2>
+          <h2>{dayJSWeekDay.charAt(0).toUpperCase() + dayJSWeekDay.slice(1)}, {dayJSYearDay}</h2>
           {(habitsDone.length) > 0
             ? <DoneQuantity
             >{Math.ceil((habitsDone.length / todayHabits.length) * 100)} % dos hábitos concluídos
