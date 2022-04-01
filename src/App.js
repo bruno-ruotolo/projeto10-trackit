@@ -6,6 +6,8 @@ import Login from "./components/Login_Register/Login"
 import Register from "./components/Login_Register/Register"
 import Habits from "./components/Habits/Habits"
 import CreateHabitsProvider from "./contexts/CreateHabitsContext"
+import Today from "./components/Today/Today";
+import History from "./components/History/History";
 
 export default function App() {
 
@@ -18,9 +20,13 @@ export default function App() {
             <Route path="/" element={<Login />} />
             <Route path="/cadastro" element={<Register />} />
             <Route path="/habitos" element={<Habits />} />
+            <Route path="/hoje" element={<Today />} />
+            <Route path="/historico" element={<History />} />
           </Routes>
         </BrowserRouter>
       </CreateHabitsProvider>
     </UserInfosProvider>
   )
 }
+
+//TODO: Componentizar os stilyed componentes um por um, para não dar conflito

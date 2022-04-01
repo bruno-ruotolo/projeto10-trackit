@@ -71,7 +71,7 @@ button {
   border: none;
   font-family: 'Lexend Deca', sans-serif;
   color: #FFFFFF;
-  background-color: #52B6FF;
+  
 }
 
 input {

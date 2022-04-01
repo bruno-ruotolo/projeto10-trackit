@@ -28,16 +28,13 @@ export default function CreateHabit(props) {
 
   function sendData(e) {
     setToggleInputs(true);
-    let arrDays = [];
     e.preventDefault();
-    const { name, days } = createHabitsInfo;
-    for (let keys of days.keys()) {
-      arrDays.push(keys)
-    }
 
+    const { name, days } = createHabitsInfo;
+    let arrDays = [...days.keys()];
     arrDays = arrDays.sort((a, b) => a - b);
+
     const objPost = { name, days: arrDays };
-    console.log(objPost);
     const config = {
       headers: {
         Authorization: `Bearer ${token}`

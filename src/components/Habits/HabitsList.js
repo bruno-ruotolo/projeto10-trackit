@@ -47,7 +47,6 @@ export default function HabitsList() {
   }, [token, boolean])
 
   function handleHabits(id) {
-    console.log(id);
     const config = {
       headers: {
         Authorization: `Bearer ${token}`
@@ -102,7 +101,7 @@ const HabitsListDiv = styled.article`
   flex-direction:column;
   align-items:flex-start;
   width: 340px;
-  height: 91px;
+  min-height: 91px;
   background-color: #FFFFFF;
   border-radius: 5px;
   margin-bottom: 10px;
@@ -125,11 +124,9 @@ const HabitsListDiv = styled.article`
   }
 `
 
-
 const CheckboxesList = styled.div`
   display:flex;
   align-items:center;
-
 `
 const CheckboxList = styled.div`
   display:flex;

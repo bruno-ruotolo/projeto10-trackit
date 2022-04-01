@@ -89,6 +89,7 @@ const Conteiner = styled.section`
     font-weight: 400;
     font-size: 20.976px;
     line-height: 26px;
+    background-color:#52B6FF;
   }
 
   p {

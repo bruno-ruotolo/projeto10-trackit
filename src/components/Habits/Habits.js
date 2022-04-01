@@ -64,6 +64,7 @@ const FixedHabitsDiv = styled.article`
     height: 35px;
     font-weight: 400;
     font-size: 27px;
+    background-color: #52B6FF;
 
     span {
       height: 37px;
