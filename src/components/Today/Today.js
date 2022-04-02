@@ -25,7 +25,7 @@ export default function Today() {
   const habitsDone = todayHabits.filter((todayHabit) => {
     return todayHabit.done
   })
-  const percentageHabitsDone = Math.ceil((habitsDone.length / todayHabits.length) * 100);
+  const percentageHabitsDone = todayHabits.length === 0 ? 0 : Math.ceil((habitsDone.length / todayHabits.length) * 100);
 
   useEffect(() => setTodayPercentage(percentageHabitsDone), [percentageHabitsDone, setTodayPercentage]);
 
