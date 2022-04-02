@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useState } from 'react'
 import axios from "axios"
 import { ThreeDots } from "react-loader-spinner"
@@ -52,11 +52,7 @@ export default function Register() {
         <button type="submit" disabled={formState}>{loading ? <ThreeDots color="#ffffff" />
           : "Cadastrar"}</button>
       </form>
-
-
-      <Link to="/">
-        <p>Já tem uma conta? Faça login!</p>
-      </Link>
+      <p onClick={() => navigate("/")}>Já tem uma conta? Faça login!</p>
     </Conteiner>
   )
 }
@@ -97,5 +93,7 @@ const Conteiner = styled.section`
     text-decoration-line: underline;
     color: #52B6FF;
     margin-top: 25px;
+    cursor: pointer;
   }
+
 `

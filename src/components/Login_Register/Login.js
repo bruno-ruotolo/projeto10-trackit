@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { ThreeDots } from "react-loader-spinner"
 import { useState, useContext, useEffect } from "react"
 import axios from "axios"
@@ -58,10 +58,7 @@ export default function Login() {
           required disabled={formState} />
         <button type="submit"> {loading ? <ThreeDots color="#ffffff" /> : "Entrar"}</button>
       </form>
-
-      <Link to="/cadastro">
-        <p>Não tem uma conta? Cadastre-se!</p>
-      </Link>
+      <p onClick={() => navigate("/cadastro")}>Não tem uma conta? Cadastre-se!</p>
     </Conteiner>
   )
 }
@@ -102,5 +99,6 @@ const Conteiner = styled.section`
     text-decoration-line: underline;
     color: #52B6FF;
     margin-top: 25px;
+    cursor: pointer;
   }
 `
