@@ -54,13 +54,12 @@ export default function HabitsList() {
     }
     const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`
 
+    const confirmar = window.confirm("Tem certeza que quer apagar?")
 
-    const confirm = prompt("Tem certeza que quer apagar? Digite 'Sim'")
 
-    if (confirm === "Sim") {
+    if (confirmar) {
       const promise = axios.delete(URL, config);
       promise.then(() => {
-        alert("Hábito removido com sucesso!")
         setCreateHabitsInfo({ ...createHabitsInfo, boolean: !boolean })
       });
       promise.catch(() => alert("Ops, algo deu errado! Tente novamente"));

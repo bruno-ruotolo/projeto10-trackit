@@ -12,7 +12,6 @@ export default function UserInfosProvider({ children }) {
 
     if (userTokenStorage && userImageStorage) {
       return ({ token: userTokenStorage, image: userImageStorage })
-
     } else {
       return ({ token: "", image: "" })
     }

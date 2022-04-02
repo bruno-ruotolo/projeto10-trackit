@@ -8,17 +8,30 @@ import Footer from "../Footer";
 import Header from "../Header";
 import { UserInfosContext } from "../../contexts/UserInfosContext";
 import TodayHabit from "./TodayHabit";
+import { CreateHabitsContext } from "../../contexts/CreateHabitsContext"
 
 export default function Today() {
+  dayjs.locale(localePtbr);
 
   const { userData: { token } } = useContext(UserInfosContext);
+  const { setTodayPercentage } = useContext(CreateHabitsContext);
 
   const [todayHabits, setTodayHabits] = useState([]);
   const [selectedHabits, setSelectedHabits] = useState(false);
 
-  useEffect(() => {
-    const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today"
+  const dayJSWeekDay = dayjs().format('dddd')
+  const dayJSYearDay = dayjs().format('DD/MM')
 
+  const habitsDone = todayHabits.filter((todayHabit) => {
+    return todayHabit.done
+  })
+  const percentageHabitsDone = Math.ceil((habitsDone.length / todayHabits.length) * 100);
+
+  useEffect(() => setTodayPercentage(percentageHabitsDone), [percentageHabitsDone, setTodayPercentage]);
+
+  useEffect(() => {
+
+    const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today"
     const config = {
       headers: {
         Authorization: `Bearer ${token}`
@@ -31,21 +44,11 @@ export default function Today() {
 
     })
 
-    console.log(dayjs.locale(localePtbr))
     promise.catch(() => {
       console.log("Promise Error");
     })
   }
     , [token, selectedHabits])
-
-  const habitsDone = todayHabits.filter((todayHabit) => {
-    return todayHabit.done
-  })
-
-  const dayJSWeekDay = dayjs().format('dddd')
-  const dayJSYearDay = dayjs().format('DD/MM')
-
-  console.log(dayJSYearDay);
 
   return (
     <>
@@ -53,9 +56,9 @@ export default function Today() {
       <TodayScreen>
         <FixedTodayDiv>
           <h2>{dayJSWeekDay.charAt(0).toUpperCase() + dayJSWeekDay.slice(1)}, {dayJSYearDay}</h2>
-          {(habitsDone.length) > 0
+          {(percentageHabitsDone) > 0
             ? <DoneQuantity
-            >{Math.ceil((habitsDone.length / todayHabits.length) * 100)} % dos hábitos concluídos
+            >{percentageHabitsDone} % dos hábitos concluídos
             </DoneQuantity>
             : <p>Nenhum hábito concluído ainda</p>}
 

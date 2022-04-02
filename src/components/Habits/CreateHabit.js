@@ -44,12 +44,9 @@ export default function CreateHabit(props) {
     const promise = axios.post(URL, objPost, config);
 
     promise.then((response) => {
-      const { data: { name } } = response;
       setToggleInputs(false);
       callBack(false);
-      alert(`Hábito ${name} criado com sucesso!`);
       setCreateHabitsInfo({ name: "", days: new Map(), boolean: !boolean });
-
     })
 
     promise.catch(() => {

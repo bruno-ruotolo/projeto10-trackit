@@ -25,7 +25,6 @@ export default function Register() {
 
     const promise = axios.post(URL, userRegister);
     promise.then(() => {
-      alert("Registro realizado com sucesso!");
       navigate("/")
     });
 
