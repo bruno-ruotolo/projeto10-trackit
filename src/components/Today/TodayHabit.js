@@ -70,7 +70,6 @@ export default function TodayHabit(props) {
   )
 }
 
-
 const TodayListDiv = styled.article`
   display:flex;
   align-items: center;
@@ -112,7 +111,6 @@ const SpanHighestSequence = styled.span`
   color: ${({ currentSequence, highestSequence, selectedHabit }) => (currentSequence === highestSequence && selectedHabit)
     ? "#8FC549" : "#666666"};
 `
-
 
 const TodayInformations = styled.div`
 display: flex;

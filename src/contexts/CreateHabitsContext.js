@@ -1,6 +1,5 @@
 import { createContext, useState } from "react";
 
-
 export const CreateHabitsContext = createContext();
 
 export default function CreateHabitsProvider({ children }) {

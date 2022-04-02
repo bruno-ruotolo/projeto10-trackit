@@ -10,7 +10,6 @@ import Today from "./components/Today/Today";
 import History from "./components/History/History";
 
 export default function App() {
-
   return (
     <UserInfosProvider>
       <CreateHabitsProvider>
@@ -28,5 +27,3 @@ export default function App() {
     </UserInfosProvider>
   )
 }
-
-//TODO: Componentizar os stilyed componentes um por um, para não dar conflito

@@ -6,7 +6,6 @@ import { ThreeDots } from "react-loader-spinner"
 
 import Logo from "./Logo.svg"
 
-
 export default function Register() {
   const [userRegister, setUserRegister] = useState({ email: "", password: "", name: "", image: "" })
   const [loadingState, setloadingState] = useState({ formState: false, loading: false });

@@ -56,7 +56,6 @@ export default function HabitsList() {
 
     const confirmar = window.confirm("Tem certeza que quer apagar?")
 
-
     if (confirmar) {
       const promise = axios.delete(URL, config);
       promise.then(() => {
@@ -112,6 +111,7 @@ const HabitsListDiv = styled.article`
     line-height: 25px;
     color: #666666;
     margin-bottom: 8px;
+    margin-right: 10px;
   }
 
   img {

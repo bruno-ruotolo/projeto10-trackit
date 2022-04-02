@@ -31,28 +31,34 @@ export default function CreateHabit(props) {
     e.preventDefault();
 
     const { name, days } = createHabitsInfo;
-    let arrDays = [...days.keys()];
-    arrDays = arrDays.sort((a, b) => a - b);
 
-    const objPost = { name, days: arrDays };
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`
+    if (days.size === 0) {
+      alert("Selecione pelo menos um dia")
+      setToggleInputs(false)
+    } else {
+      let arrDays = [...days.keys()];
+      arrDays = arrDays.sort((a, b) => a - b);
+
+      const objPost = { name, days: arrDays };
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       }
+      const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits"
+      const promise = axios.post(URL, objPost, config);
+
+      promise.then((response) => {
+        setToggleInputs(false);
+        callBack(false);
+        setCreateHabitsInfo({ name: "", days: new Map(), boolean: !boolean });
+      })
+
+      promise.catch(() => {
+        setToggleInputs(false);
+        alert("Ops, algo deu errado! Verifique se todos os campos estão preenchidos e tente novamente")
+      })
     }
-    const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits"
-    const promise = axios.post(URL, objPost, config);
-
-    promise.then((response) => {
-      setToggleInputs(false);
-      callBack(false);
-      setCreateHabitsInfo({ name: "", days: new Map(), boolean: !boolean });
-    })
-
-    promise.catch(() => {
-      setToggleInputs(false);
-      alert("Ops, algo deu errado! Verifique se todos os campos estão preenchidos e tente novamente")
-    })
   }
 
   return creationTab ? (

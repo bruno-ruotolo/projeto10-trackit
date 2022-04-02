@@ -17,7 +17,6 @@ export default function History() {
       <Footer />
     </>
   )
-
 }
 
 const FixedHistoryDiv = styled.article`

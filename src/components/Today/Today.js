@@ -88,40 +88,40 @@ export default function Today() {
 }
 
 const FixedTodayDiv = styled.article`
-      display: flex;
-      align-items: flex-start;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 330px;
-      margin-bottom: 28px;
-      margin-top: 28px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 330px;
+  margin-bottom: 28px;
+  margin-top: 28px;
 
-      h2 {
-      font-weight: 400;
-      font-size: 22.976px;
-      line-height: 29px;
-      color: #126BA5;
-    }
+  h2 {
+  font-weight: 400;
+  font-size: 22.976px;
+  line-height: 29px;
+  color: #126BA5;
+}
       `
 
 const TodayScreen = styled.section`
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      top: 70px;
-      background-color: #F2F2F2;
-      min-height: calc(100vh - 140px);
-      width: 100%;
-      margin-bottom: 70px;
-      margin-top: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 70px;
+  background-color: #F2F2F2;
+  min-height: calc(100vh - 140px);
+  width: 100%;
+  margin-bottom: 70px;
+  margin-top: 70px;
 
-      p {
-      font-weight: 400;
-      font-size: 17.976px;
-      line-height: 22px;
-      color: #666666;
-    }
-      `
+  p {
+  font-weight: 400;
+  font-size: 17.976px;
+  line-height: 22px;
+  color: #666666;
+}
+  `
 
 const DoneQuantity = styled.span`
   color: #8FC549;
