@@ -2,12 +2,8 @@
 In this project was developed a application to help with the creation of habits and organization of the routine
 
 <hr></hr>
-<h3>Desktop Layout</h3> 
-<img src="/assets/trackit.gif" />
-
-<hr></hr>
 <h3>Mobile Layout</h3> 
-  <img src="/assets/trackit-mobile.gif" />
+  <img src="/assets/trackit.gif" />
 
 Try it out at https://projeto10-trackit-438oxw5oo-bruno-ruotolo.vercel.app
 
