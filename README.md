@@ -30,6 +30,8 @@ The following tools, frameworks and languages were used in this project:<br>
   <img style='margin: 5px;' src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white"/>
   <img style='margin: 5px;' src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E"/>
   <img style='margin: 5px;' src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB"/>
+  <img style='margin: 5px;' src="https://img.shields.io/badge/axios-%23323330.svg?style=for-the-badge&color=671DDF"/>
+  <img style='margin: 5px;' src="https://img.shields.io/badge/react-loader-spinner-%23323330.svg?style=for-the-badge&color=001BAD"/>
   
 </div>
 
